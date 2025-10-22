@@ -11,6 +11,7 @@ import com.example.eventplanner.model.Service;
 import com.example.eventplanner.model.ServiceAndProductCategory;
 import com.example.eventplanner.model.ServiceReview;
 import com.example.eventplanner.model.enums.AppointmentType;
+import com.example.eventplanner.model.enums.DisplayService;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -108,6 +109,13 @@ public interface ServiceService {
 
     @GET("api/services/reserved-by/{id}")
     Call<List<Object>> getReservedServicesBy(@Path("id") Integer organizerId);
+
+//    @GET("/api/services/search")
+//    Call<List<DisplayService>> getAllServices();
+
+    @GET("/api/services/search")
+    Call<Object> getAllServices();
+
 
 
 }
