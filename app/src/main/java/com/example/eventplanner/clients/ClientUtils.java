@@ -24,7 +24,7 @@ public class ClientUtils {
     public static void init(Context context){
         appContext = context;
         retrofit= new Retrofit.Builder()
-                .baseUrl("http://192.168.1.2:8080/")
+                .baseUrl("http://192.168.0.27:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(test())
                 .build();

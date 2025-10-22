@@ -170,25 +170,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
-
-                <include layout="@layout/service_card" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/servicesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp" />
             </LinearLayout>
 
         </LinearLayout>

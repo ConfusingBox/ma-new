@@ -156,7 +156,7 @@ public class ProductCreationFragment extends Fragment {
                 String jwtToken = requireContext().getSharedPreferences("Preferences", Context.MODE_PRIVATE).getString("JWT_TOKEN", null);
                 JWT decodedJWT = new JWT(jwtToken);
                 String userId = decodedJWT.getClaim("id").asString();
-                Call<Product> call1 = ClientUtils.productService.addPro(Integer.parseInt(userId),new Product(1,price1,name1,description1,category1,discount1,status1,eventTypes1,categoryRec1));
+                Call<Product> call1 = ClientUtils.productService.addPro(Integer.parseInt(userId),new Product());
                 call1.enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call, Response<Product> response) {

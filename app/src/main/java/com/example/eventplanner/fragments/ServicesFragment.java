@@ -15,15 +15,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.eventplanner.R;
 import com.example.eventplanner.activities.HomeActivity;
 import com.example.eventplanner.activities.LoginActivity;
 import com.example.eventplanner.activities.SplashScreenActivity;
+import com.example.eventplanner.adapters.ServiceAdapter;
 import com.example.eventplanner.clients.ClientUtils;
 import com.example.eventplanner.clients.ServiceService;
 import com.example.eventplanner.dto.Page;
+import com.example.eventplanner.model.DisplayEvent;
 import com.example.eventplanner.model.Service;
 import com.example.eventplanner.model.ServiceAndProductCategory;
+import com.example.eventplanner.model.enums.DisplayService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
@@ -34,6 +40,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.Console;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,19 +98,20 @@ public class ServicesFragment extends Fragment {
             logInButton.setText("Log in");
         }
 
-        /*
         Call<Page> findCategories = ClientUtils.serviceService.findAllCategories();
         findCategories.enqueue(new Callback<Page>() {
             @Override
             public void onResponse(Call<Page> call, Response<Page> response) {
                 categories = (ArrayList<ServiceAndProductCategory>) response.body().getContent();
 
-                Log.i("falafel", String.valueOf(categories));
-
+                Gson gson = new Gson();
                 ArrayList<String> categoriesStrings = new ArrayList<>();
 
-                for (ServiceAndProductCategory category : categories) {
-                    categoriesStrings.add(category.getName());
+                categoriesStrings.add("");
+                for (int i = 0; i < categories.size(); i++) {
+                    JsonObject jsonObject = gson.toJsonTree(categories.get(i)).getAsJsonObject();
+                    ServiceAndProductCategory object = gson.fromJson(jsonObject, ServiceAndProductCategory.class);
+                    categoriesStrings.add(object.getName());
                 }
 
                 Spinner categorySpinner = rootView.findViewById(R.id.servicesSearchCategory);
@@ -116,7 +124,19 @@ public class ServicesFragment extends Fragment {
                 Log.d("REZ", t.getMessage() != null ? t.getMessage() : "ERROR");
             }
         });
-        */
+
+        ArrayList<String> statusStrings = new ArrayList<>();
+        statusStrings.add("");
+        statusStrings.add("visible");
+        statusStrings.add("invisible");
+        statusStrings.add("deleted");
+        statusStrings.add("pending");
+        statusStrings.add("unavailable");
+
+        Spinner statusSpinner = rootView.findViewById(R.id.servicesSearchStatus);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, statusStrings);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusSpinner.setAdapter(adapter);
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,25 +156,21 @@ public class ServicesFragment extends Fragment {
                 EditText servicesSearchPriceMax = rootView.findViewById(R.id.servicesSearchPriceMax);
 
                 String name = servicesSearchName.getText().toString();
-                //String categoryName = servicesSearchCategory.getSelectedItem().toString();
-                //String status = servicesSearchStatus.getSelectedItem().toString();
+                String categoryName = servicesSearchCategory.getSelectedItem().toString();
+                String status = servicesSearchStatus.getSelectedItem().toString();
                 String priceLow = servicesSearchPriceMin.getText().toString();
                 String priceHigh = servicesSearchPriceMax.getText().toString();
 
                 Map<String, String> filters = new HashMap<String, String>();
 
                 if (!name.isEmpty()) filters.put("name", name);
-                // category
-                // status
+                if (!categoryName.equals("") || !categoryName.isEmpty()) filters.put("category", categoryName);
+                if (!status.equals("") || !status.isEmpty()) filters.put("status", status);
                 if (!priceLow.isEmpty()) filters.put("priceLow", priceLow);
                 if (!priceHigh.isEmpty()) filters.put("priceHigh", priceHigh);
                 filters.put("sort", "id");
                 filters.put("page", "0");
                 filters.put("size", "10");
-
-
-                // SEARCH RADI, ALI FINDONE SADA NE RADI ???
-
 
                 Call<Page> call = ClientUtils.serviceService.search(filters);
                 call.enqueue(new Callback<Page>() {
@@ -165,11 +181,31 @@ public class ServicesFragment extends Fragment {
 
                         try {
                             Page javaObject = mapper.readValue(jsonString, Page.class);
+                            List<Service> services = new ArrayList<>();
 
                             for (Object o : javaObject.getContent()) {
                                 Service service = mapper.convertValue(o, Service.class);
+                                services.add(service);
                                 Log.i(String.format("Service ID=%d", service.getId()), service.toString());
                             }
+
+                            List<DisplayService> displayServices = new ArrayList<>();
+
+                            for (Service s : services) {
+                                DisplayService ds = new DisplayService();
+                                ds.setId(s.getId());
+                                ds.setCategory(s.getServiceAndProductCategory().getName());
+                                ds.setDescription(s.getDescription());
+                                ds.setPrice(Float.toString(s.getPrice()));
+                                ds.setProviderName(s.getServiceAndProductProvider().getFirstName() + " " + s.getServiceAndProductProvider().getLastName());
+                                ds.setName(s.getName());
+                                displayServices.add(ds);
+                            }
+
+                            RecyclerView servicesRecyclerView = rootView.findViewById(R.id.servicesRecyclerView);
+                            servicesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            ServiceAdapter adapter = new ServiceAdapter(displayServices);
+                            servicesRecyclerView.setAdapter(adapter);
                         } catch (JsonProcessingException e) {
                             throw new RuntimeException(e);
                         }

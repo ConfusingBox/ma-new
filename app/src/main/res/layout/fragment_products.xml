@@ -67,7 +67,7 @@
                 android:paddingLeft="5dp">
 
                 <EditText
-                    android:id="@+id/searchEntry"
+                    android:id="@+id/productsSearchEntry"
                     android:background="@drawable/textview_border"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                     android:inputType="text" />
 
                 <ImageButton
-                    android:id="@+id/searchButton"
+                    android:id="@+id/productsSearchButton"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
@@ -142,30 +142,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/nameText"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Name:"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/nameInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/textview_border"
-
-                    android:ems="10"
-                    android:inputType="text" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:orientation="horizontal">
-
-                <TextView
                     android:id="@+id/CategoryText"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -173,7 +149,7 @@
                     android:textAlignment="center" />
 
                 <Spinner
-                    android:id="@+id/categorySpinner"
+                    android:id="@+id/productsCategorySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_border"
@@ -195,7 +171,7 @@
                     android:textAlignment="center" />
 
                 <Spinner
-                    android:id="@+id/statusSpinner"
+                    android:id="@+id/productsStatusSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_border"
@@ -361,37 +337,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
                 android:orientation="vertical">
 
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
-
-                <include layout="@layout/service_card"/>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp" />
             </LinearLayout>
 
         </LinearLayout>

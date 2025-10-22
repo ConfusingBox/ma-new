@@ -1,5 +1,6 @@
 package com.example.eventplanner.clients;
 
+import com.example.eventplanner.dto.Page;
 import com.example.eventplanner.model.DisplayProduct;
 import com.example.eventplanner.model.EventType;
 import com.example.eventplanner.model.GetProduct;
@@ -8,6 +9,7 @@ import com.example.eventplanner.model.UpdateProduct;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,6 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ProductService {
 
@@ -53,6 +56,6 @@ public interface ProductService {
     @GET("/api/products/search?sort=id,desc&page=0&size=5")
     Call<com.google.gson.JsonObject> getTop5Products();
 
-
-
+    @GET("/api/products/search")
+    Call<Page> search(@QueryMap Map<String, String> filters);
 }
