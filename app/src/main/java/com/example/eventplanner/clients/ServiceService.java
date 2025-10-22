@@ -100,4 +100,8 @@ public interface ServiceService {
 
     @DELETE("/api/services/category/delete/{id}")
     Call<?> deleteHardCategory(@Path("id") Integer id);
+
+    @GET("/api/services/search?sort=id,desc&page=0&size=5")
+    Call<com.google.gson.JsonObject> getTop5Services();
+
 }
