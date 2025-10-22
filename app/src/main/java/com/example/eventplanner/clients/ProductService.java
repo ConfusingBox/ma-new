@@ -16,6 +16,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ProductService {
 
@@ -48,4 +49,10 @@ public interface ProductService {
 
     @GET("/api/products/favProduct/{id}")
     Call<ArrayList<GetProduct>> getFavProducts(@Path("id") Integer id);
+
+    @GET("/api/products/search?sort=id,desc&page=0&size=5")
+    Call<com.google.gson.JsonObject> getTop5Products();
+
+
+
 }

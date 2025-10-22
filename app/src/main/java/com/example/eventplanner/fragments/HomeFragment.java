@@ -30,8 +30,11 @@ import com.example.eventplanner.activities.EventTypeUpdateActivity;
 import com.example.eventplanner.activities.LoginActivity;
 import com.example.eventplanner.activities.ProductCreationActivity;
 import com.example.eventplanner.activities.UpdateCompanyActivity;
+import com.example.eventplanner.adapters.ProductAdapter;
+import com.example.eventplanner.adapters.ServiceAdapter;
 import com.example.eventplanner.clients.ClientUtils;
 import com.example.eventplanner.databinding.ActivityDisplayAllEventsBinding;
+import com.example.eventplanner.model.DisplayProduct;
 import com.example.eventplanner.model.EventOrganizer;
 
 import java.util.List;
@@ -48,6 +51,7 @@ import com.example.eventplanner.adapters.EventAdapter;
 import com.example.eventplanner.clients.EventService;
 import com.example.eventplanner.clients.ClientUtils;
 import com.example.eventplanner.model.Event;
+import com.example.eventplanner.model.enums.DisplayService;
 
 import java.util.ArrayList;
 
@@ -434,6 +438,12 @@ public class HomeFragment extends Fragment {
         recyclerViewTop.setAdapter(new EventAdapter(new ArrayList<>()));
 
 
+        RecyclerView productRecyclerView = rootView.findViewById(R.id.topProductsRecyclerView);
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        loadTop5Products(productRecyclerView);
+
+
 
         return rootView;
 
@@ -465,5 +475,106 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    private void loadTop5Products(RecyclerView recyclerView) {
+        android.util.Log.d("TOP_PRODUCTS", "📡 Sending request to backend...");
+
+        Call<com.google.gson.JsonObject> call = ClientUtils.productService.getTop5Products();
+
+        call.enqueue(new Callback<com.google.gson.JsonObject>() {
+            @Override
+            public void onResponse(Call<com.google.gson.JsonObject> call, Response<com.google.gson.JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    com.google.gson.JsonObject responseBody = response.body();
+
+                    // ✅ ručno izvučemo "content" polje
+                    com.google.gson.JsonArray contentArray = responseBody.getAsJsonArray("content");
+
+                    List<DisplayProduct> products = new ArrayList<>();
+
+                    if (contentArray != null) {
+                        for (int i = 0; i < contentArray.size(); i++) {
+                            com.google.gson.JsonObject obj = contentArray.get(i).getAsJsonObject();
+
+                            DisplayProduct p = new DisplayProduct();
+                            p.setId(obj.get("id").getAsInt());
+                            p.setName(obj.get("name").getAsString());
+                            p.setDescription(obj.has("description") && !obj.get("description").isJsonNull()
+                                    ? obj.get("description").getAsString() : "");
+                            if (obj.has("price") && !obj.get("price").isJsonNull()) {
+                                p.setPrice(String.valueOf(obj.get("price").getAsDouble()));
+                            }
+
+                            products.add(p);
+                        }
+                    }
+
+                    android.util.Log.d("TOP_PRODUCTS", "✅ Parsed " + products.size() + " products");
+
+                    ProductAdapter adapter = new ProductAdapter(products);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    android.util.Log.e("TOP_PRODUCTS", "❌ Response unsuccessful or body null. Code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.google.gson.JsonObject> call, Throwable t) {
+                android.util.Log.e("TOP_PRODUCTS", "💥 Retrofit call failed: " + t.getMessage(), t);
+            }
+        });
+    }
+
+    private void loadTop5Services(RecyclerView recyclerView) {
+        android.util.Log.d("TOP_SERVICES", "📡 Sending request to backend...");
+
+        Call<com.google.gson.JsonObject> call = ClientUtils.serviceService.getTop5Services();
+
+        call.enqueue(new Callback<com.google.gson.JsonObject>() {
+            @Override
+            public void onResponse(Call<com.google.gson.JsonObject> call, Response<com.google.gson.JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    com.google.gson.JsonObject responseBody = response.body();
+                    com.google.gson.JsonArray contentArray = responseBody.getAsJsonArray("content");
+
+                    List<DisplayService> services = new ArrayList<>();
+
+                    if (contentArray != null) {
+                        for (int i = 0; i < contentArray.size(); i++) {
+                            com.google.gson.JsonObject obj = contentArray.get(i).getAsJsonObject();
+
+                            DisplayService s = new DisplayService();
+                            s.setId(obj.get("id").getAsInt());
+                            s.setName(obj.get("name").getAsString());
+                            s.setDescription(obj.has("description") && !obj.get("description").isJsonNull()
+                                    ? obj.get("description").getAsString() : "");
+
+                            if (obj.has("price") && !obj.get("price").isJsonNull()) {
+                                s.setPrice(String.valueOf(obj.get("price").getAsDouble()));
+                            } else {
+                                s.setPrice("N/A");
+                            }
+
+                            services.add(s);
+                        }
+                    }
+
+                    android.util.Log.d("TOP_SERVICES", "✅ Parsed " + services.size() + " services");
+
+                    ServiceAdapter adapter = new ServiceAdapter(services);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    android.util.Log.e("TOP_SERVICES", "❌ Response unsuccessful or body null. Code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.google.gson.JsonObject> call, Throwable t) {
+                android.util.Log.e("TOP_SERVICES", "💥 Retrofit call failed: " + t.getMessage(), t);
+            }
+        });
+    }
+
+
 
 }

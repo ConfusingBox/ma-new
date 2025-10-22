@@ -8,25 +8,25 @@
     android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/serviceName"
+        android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Service name"
+        android:text="Product name"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/serviceDescription"
+        android:id="@+id/productDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Service description"
+        android:text="Product description"
         android:textSize="16sp"
         android:textColor="#212121"
         android:paddingTop="4dp"/>
 
     <TextView
-        android:id="@+id/servicePrice"
+        android:id="@+id/productPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Price: "

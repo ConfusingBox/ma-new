@@ -298,15 +298,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/service_card"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/topProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp" />
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
+
+<!--                <include layout="@layout/service_card"/>-->
 
             </LinearLayout>
 
@@ -340,6 +347,8 @@
                     android:ems="10"
                     android:inputType="text"
                     android:text="Novi Sad" />
+
+
             </LinearLayout>
 
             <!-- RecyclerView za dinamički prikaz Top 5 eventova -->
