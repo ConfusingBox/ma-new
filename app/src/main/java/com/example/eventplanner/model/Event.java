@@ -53,6 +53,19 @@ public class Event {
     @Expose
     private Integer organizerId;
 
+    @SerializedName("eventOrganizerId")
+    @Expose
+    private Integer eventOrganizerId;
+
+    public Integer getEventOrganizerId() {
+        return eventOrganizerId;
+    }
+
+    public void setEventOrganizerId(Integer eventOrganizerId) {
+        this.eventOrganizerId = eventOrganizerId;
+    }
+
+
     public Event(Integer id, String name, String privacy, String description, String country, String city,
                            String address, String participants, String dateTime, EventType eventType, String recEvType) {
         this.id = id;

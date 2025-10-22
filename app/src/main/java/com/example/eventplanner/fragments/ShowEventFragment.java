@@ -1,9 +1,11 @@
 package com.example.eventplanner.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,6 +69,24 @@ public class ShowEventFragment extends Fragment {
         dateText.setText(eventDate != null ? "📅 " + eventDate : "");
         participantsText.setText("👥 Participants: " + eventParticipants);
 
+        Button organizerButton = view.findViewById(R.id.showEventActionButton);
+
+        organizerButton.setOnClickListener(v -> {
+            Log.d("SHOW_EVENT", "✅ Klik u fragmentu detektovan!");
+
+            // Prebaci na UserDetailsFragment unutar iste aktivnosti
+            Fragment userDetailsFragment = UserDetailsFragment.newInstance(1); // kasnije ćemo staviti pravi organizerId
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_show_event, userDetailsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+
         return view;
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.example.eventplanner.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import com.example.eventplanner.R;
 import com.example.eventplanner.clients.ClientUtils;
 import com.example.eventplanner.databinding.ActivityShowEventBinding;
 import com.example.eventplanner.fragments.ShowEventFragment;
+import com.example.eventplanner.fragments.UserDetailsFragment;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ShowEventActivity extends AppCompatActivity {
+
+    private int organizerId = 1; // 🔹 privremeni ID dok ne dobijemo pravi iz adaptera
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +52,11 @@ public class ShowEventActivity extends AppCompatActivity {
         });
 
         Log.d("Katenda", "ShowEventActivity onCreate()");
+        Log.d("SHOW_EVENT", "🔍 Organizer ID = " + organizerId);
 
         // ============================================
         // 🔹 DEBUG POZIV — prikaz rezervisanih servisa
         // ============================================
-
-        // Za test koristi privremeni organizerId (npr. 1 ili 2)
-        // Kada povežemo sa realnim Event objektom, zamenimo ovo pravim ID-em
-        int organizerId = 1;
-        Log.d("SHOW_EVENT", "🔍 Organizer ID = " + organizerId);
 
         Call<List<Object>> call = ClientUtils.serviceService.getReservedServicesBy(organizerId);
 
@@ -79,6 +79,25 @@ public class ShowEventActivity extends AppCompatActivity {
                 Log.e("SHOW_EVENT", "💥 Retrofit error: " + t.getMessage(), t);
             }
         });
+
+//        // ==================================================
+//        // 🔹 Dugme koje vodi na UserDetailsFragment (chat)
+//        // ==================================================
+//        Button actionButton = findViewById(R.id.showEventActionButton);
+//        Log.d("SHOW_EVENT", "🔹 Dugme je " + (actionButton == null ? "null" : "pronađeno"));
+//
+//
+//        if (actionButton != null) {
+//            actionButton.setOnClickListener(v -> {
+//                Fragment userDetailsFragment = UserDetailsFragment.newInstance(organizerId);
+//
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container_show_event, userDetailsFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//            });
+//        }
     }
 
     private void replaceFragment(Fragment newFragment) {

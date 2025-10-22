@@ -50,14 +50,18 @@
             android:layout_marginBottom="16dp" />
 
 
-            <Button
-                android:layout_width="150"
-                android:layout_height="50"
-                android:text="Organizer"
-                android:layout_marginBottom="30"
-                >
-                
-            </Button>
+        <Button
+            android:id="@+id/showEventActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/orange"
+            android:textColor="@android:color/white"
+            android:text="Organizer"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp" />
         <!-- ========== DONJI DEO: DUMMY KATEGORIJE I PROIZVODI ========== -->
 
         <!-- Kategorija 1 -->
