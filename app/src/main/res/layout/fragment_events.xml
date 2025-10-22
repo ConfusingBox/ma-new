@@ -248,33 +248,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/service_card"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:clipToPadding="false" />
 
 
-                <include layout="@layout/service_card"/>
+                <!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
 
-                <include layout="@layout/service_card"/>
+<!--                <include layout="@layout/service_card"/>-->
 
-                <include layout="@layout/service_card"/>
+
+<!--                <include layout="@layout/service_card"/>-->
+
+<!--                <include layout="@layout/service_card"/>-->
             </LinearLayout>
 
         </LinearLayout>

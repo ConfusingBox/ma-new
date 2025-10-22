@@ -25,6 +25,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import java.util.List;
+
 
 public interface ServiceService {
     @Headers({
@@ -103,5 +105,9 @@ public interface ServiceService {
 
     @GET("/api/services/search?sort=id,desc&page=0&size=5")
     Call<com.google.gson.JsonObject> getTop5Services();
+
+    @GET("api/services/reserved-by/{id}")
+    Call<List<Object>> getReservedServicesBy(@Path("id") Integer organizerId);
+
 
 }
