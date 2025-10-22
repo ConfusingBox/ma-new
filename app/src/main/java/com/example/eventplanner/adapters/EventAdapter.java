@@ -1,5 +1,7 @@
 package com.example.eventplanner.adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventplanner.R;
+import com.example.eventplanner.activities.ShowEventActivity;
 import com.example.eventplanner.model.Event;
 
 import java.util.List;
@@ -35,13 +38,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         holder.nameText.setText(event.getName() != null ? event.getName() : "Unnamed event");
         holder.descriptionText.setText(event.getDescription() != null ? event.getDescription() : "");
-        try {
-            // ako postoji polje city direktno u Event modelu
-            holder.cityText.setText(event.getCity());
-        } catch (Exception e) {
-            holder.cityText.setText("");
-        }
+        holder.cityText.setText(event.getCity() != null ? event.getCity() : "");
 
+        // 🔹 Dodaj klik listener za svaku karticu
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ShowEventActivity.class);
+            intent.putExtra("event_name", event.getName());
+            intent.putExtra("event_description", event.getDescription());
+            intent.putExtra("event_date", event.getDateTime());
+            intent.putExtra("event_participants", event.getParticipants());
+            intent.putExtra("organizer_id", event.getOrganizerId());
+            v.getContext().startActivity(intent);
+
+            // (opciono: animacija pri prelazu)
+            if (v.getContext() instanceof Activity) {
+                ((Activity) v.getContext()).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
     }
 
     @Override

@@ -49,6 +49,10 @@ public class Event {
     @Expose
     private String recEvType;
 
+    @SerializedName("event_organizer_id")
+    @Expose
+    private Integer organizerId;
+
     public Event(Integer id, String name, String privacy, String description, String country, String city,
                            String address, String participants, String dateTime, EventType eventType, String recEvType) {
         this.id = id;
@@ -64,6 +68,12 @@ public class Event {
         this.recEvType = recEvType;
     }
 
+    public Integer getOrganizerId() {
+        return organizerId;
+    }
+    public void setOrganizerId(Integer organizerId) {
+        this.organizerId = organizerId;
+    }
     public Integer getId() {
         return id;
     }

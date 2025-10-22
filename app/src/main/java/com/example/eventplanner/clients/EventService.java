@@ -80,4 +80,8 @@ public interface EventService {
     @GET("/api/events/top5Events")
     Call<ArrayList<Event>> getTop5Events();
 
+    @GET("/api/events/search")
+    Call<Object> getPagedEvents();
+
+
 }
