@@ -242,38 +242,9 @@
                 android:textSize="18dp" />
 
 
-            <TextView
-                android:id="@+id/topEventsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Top 5 events in:"
-                android:textSize="24dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/topEventsCountryInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="Serbia" />
 
-                <EditText
-                    android:id="@+id/topEventsCityInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="Novi Sad" />
-
-            </LinearLayout>
 
             <!-- Dole mozda treba neki backgroud -->
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -293,10 +264,55 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/topServicesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Top 5 services:"
+                    android:textSize="24dp"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/topServicesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp" />
+
+                <!--                <include layout="@layout/service_card"/>-->
+
+                <!--                <include layout="@layout/service_card"/>-->
+
+                <!--                <include layout="@layout/service_card"/>-->
+
+                <!--                <include layout="@layout/service_card"/>-->
+
+                <!--                <include layout="@layout/service_card"/>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/topProductsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Top 5 products:"
+                    android:textSize="24dp"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/topProductsRecyclerView"
@@ -316,40 +332,21 @@
 <!--                <include layout="@layout/service_card"/>-->
 
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/topServicesAndProductsText"
+                android:id="@+id/topEventsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Top 5 services and products in:"
-                android:textSize="24dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/topServicesAndProductsCountryInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="Serbia" />
-
-                <EditText
-                    android:id="@+id/topServicesAndProductsCityInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="Novi Sad" />
+                android:text="Top 5 events:"
+                android:textSize="24dp"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold" />
 
 
-            </LinearLayout>
 
             <!-- RecyclerView za dinamički prikaz Top 5 eventova -->
             <androidx.recyclerview.widget.RecyclerView
@@ -359,7 +356,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false" />
-
+        </LinearLayout>
 
 <!--            <LinearLayout-->
 <!--                android:layout_width="match_parent"-->

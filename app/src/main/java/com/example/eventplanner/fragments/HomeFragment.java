@@ -437,11 +437,19 @@ public class HomeFragment extends Fragment {
         }
         recyclerViewTop.setAdapter(new EventAdapter(new ArrayList<>()));
 
-
+///////////////////////////////////////////
         RecyclerView productRecyclerView = rootView.findViewById(R.id.topProductsRecyclerView);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         loadTop5Products(productRecyclerView);
+
+
+/////////////////////////////////////////
+        RecyclerView topServicesRecyclerView = rootView.findViewById(R.id.topServicesRecyclerView);
+        topServicesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        loadTop5Services(topServicesRecyclerView);
+
 
 
 
