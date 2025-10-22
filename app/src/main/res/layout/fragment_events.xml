@@ -106,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="date" />
+                    android:hint="YYYY-MM-DDTHH:MM:SS"/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,8 +128,8 @@
                     android:id="@+id/endDateEntry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="date" />
+                    android:hint="YYYY-MM-DDTHH:MM:SS"
+                    android:ems="10"/>
             </LinearLayout>
 
             <LinearLayout

@@ -1,8 +1,10 @@
 package com.example.eventplanner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
     @SerializedName("id")
     @Expose
@@ -79,6 +81,10 @@ public class Event {
         this.dateTime = dateTime;
         this.eventType = eventType;
         this.recEvType = recEvType;
+    }
+
+    public Event() {
+
     }
 
     public Integer getOrganizerId() {
