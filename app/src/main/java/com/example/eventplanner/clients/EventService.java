@@ -1,5 +1,6 @@
 package com.example.eventplanner.clients;
 
+import com.example.eventplanner.dto.Page;
 import com.example.eventplanner.model.Activity;
 import com.example.eventplanner.model.CreatedEvent;
 import com.example.eventplanner.model.DisplayEvent;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,6 +23,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface EventService {
     @Headers({
@@ -83,5 +86,6 @@ public interface EventService {
     @GET("/api/events/search")
     Call<Object> getPagedEvents();
 
-
+    @GET("/api/events/search")
+    Call<Page> search(@QueryMap Map<String, String> filters);
 }
